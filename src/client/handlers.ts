@@ -89,7 +89,15 @@ RegisterNuiCallback(
       alert == 'confirm'
     );
 
-    setPedAppearance(ped, data.original);
+    setPedAppearance(ped, {
+      ...newAppearance,
+      props: data.original.props,
+      drawables: {
+        ...data.original.drawables,
+        ["face"]: newAppearance.drawables["face"],
+        ["hair"]: newAppearance.drawables["hair"],
+      }
+    });
     cb(1);
   }
 );
