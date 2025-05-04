@@ -41,5 +41,4 @@ file_set 'locale' {
 
 dependencies {
     'bl_bridge',
-    'bl_sprites'
 }
