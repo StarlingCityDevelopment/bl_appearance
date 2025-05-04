@@ -50,8 +50,6 @@
         displayValueX = value.displayX;
         displayValueY = value.displayY;
         dispatch('change', value);
-
-        console.log(value);
     }
 
     function handleMouseDown(e) {

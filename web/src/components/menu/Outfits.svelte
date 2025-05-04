@@ -36,7 +36,10 @@
         switch (action) {
             case 'use':
                 if (outfit) {
-                    OUTFITS.use(outfit);
+                    //OUTFITS.use(outfit);
+                    if (outfit) {
+                        OUTFITS.item(outfit, (renameLabel !== '') ? renameLabel : label)
+                    }
                 }
                 break;
             case 'share':
@@ -74,7 +77,7 @@
                     class="w-full flex items-center justify-center gap-[0.5vh] h-[3vh]"
                 >
                     <button
-                        on:click={() => handleOutfitAction('use', i, outfit)}
+                        on:click={() => handleOutfitAction('use', i, outfit, label)}
                         class="btn w-full">{$LOCALE.USE_TITLE}</button
                     >
                     <button

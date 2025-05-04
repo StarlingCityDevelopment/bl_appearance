@@ -158,7 +158,6 @@ const OUTFITS_INIT = () => {
         },
 
         item: (outfit: TOutfitData, label: string) => {
-            console.log(outfit, label);
             SendEvent(Send.itemOutfit, { outfit, label });
         },
     };

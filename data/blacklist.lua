@@ -11,15 +11,6 @@
 local BLACKLIST = {
 	jobs = {
 		["police"] = {
-			models = {
-				"csb_cop",
-				"s_f_y_cop_01",
-				"s_m_y_hwaycop_01",
-				"s_f_y_sheriff_01",
-				"s_m_y_sheriff_01",
-				"s_f_y_ranger_01",
-				"s_m_y_ranger",
-			},
 			-- add eveyrthign else you need such as the props etc
 		},
 		-- add any other jobs in here
@@ -43,7 +34,7 @@ local ALLOWLIST = {
 	characters = {
 		-- ['QJY03813'] = {
 		--     "ig_isldj_00"
-	    -- }
+		-- }
 	}
 }
 
@@ -140,8 +131,8 @@ local blaclistBase = {
 
 exports("blacklist", function()
 	return {
-        groupTypes = BLACKLIST,
-        base = blaclistBase,
-        allowList = ALLOWLIST,
-    }
+		groupTypes = BLACKLIST,
+		base = blaclistBase,
+		allowList = ALLOWLIST,
+	}
 end)

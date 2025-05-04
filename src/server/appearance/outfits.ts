@@ -1,7 +1,7 @@
 import { oxmysql } from "@overextended/oxmysql";
 import { config, core, getFrameworkID, onClientCallback } from "../utils";
-import { Outfit } from "@typings/outfits";
-import { TAppearance, TDrawables, TValue } from "@typings/appearance";
+import { Outfit, TOutfitData } from "@typings/outfits";
+import { TAppearance, TDrawables, TProps } from "@typings/appearance";
 
 async function getOutfits(src: number, frameworkId: string) {
   const job = core.GetPlayer(src).job || {
@@ -135,9 +135,51 @@ if (!outfitItem) {
   );
 }
 
-onClientCallback("bl_appearance:server:itemOutfit", async (src, data) => {
+onClientCallback("bl_appearance:server:itemOutfit", async (src, data: { outfit: TOutfitData; label: string }) => {
   const player = core.GetPlayer(src);
-  player.addItem(outfitItem, 1, data);
+
+  let props: TProps = {};
+  let drawables: TDrawables = {};
+
+  const restrictedProps = ['mouth', 'lhand', 'rhand']
+  const restrictedDrawables = ['hair', 'face']
+
+  if (data.outfit.props) {
+    Object.entries(data.outfit.props).forEach(([key, item]) => {
+      if (restrictedProps.includes(key)) {
+        return;
+      }
+      props[key] = {
+        id: key,
+        index: item.index,
+        value: item.value,
+        texture: item.texture,
+      };
+    })
+  }
+
+  if (data.outfit.drawables) {
+    Object.entries(data.outfit.drawables).forEach(([key, item]) => {
+      if (restrictedDrawables.includes(key)) {
+        return;
+      }
+      drawables[key] = {
+        id: key,
+        index: item.index,
+        value: item.value,
+        texture: item.texture,
+      };
+    })
+  }
+
+  console.log(data.label)
+  player.addItem(outfitItem, 1, {
+    label: data.label,
+    outfit: {
+      props: props,
+      drawables: drawables,
+    },
+  });
 });
 
 onClientCallback(
@@ -154,8 +196,8 @@ onClientCallback(
       player.getBalance("cash") >= config.outfitCost
         ? "cash"
         : player.getBalance("bank") >= config.outfitCost
-        ? "bank"
-        : false;
+          ? "bank"
+          : false;
     if (!hasMoney) {
       return false;
     }
@@ -205,10 +247,46 @@ onClientCallback(
         });
       });
     } else {
+      let props: TProps = {};
+      let drawables: TDrawables = {};
+
+      const restrictedProps = ['mouth', 'lhand', 'rhand']
+      const restrictedDrawables = ['hair', 'face']
+
+      if (appearance.drawables) {
+        Object.entries(appearance.drawables).forEach(([key, item]) => {
+          if (restrictedDrawables.includes(key)) {
+            return;
+          }
+
+          drawables[key] = {
+            id: key,
+            index: item.index,
+            value: item.value,
+            texture: item.texture,
+          };
+        })
+      }
+
+      if (appearance.props) {
+        Object.entries(appearance.props).forEach(([key, item]) => {
+          if (restrictedProps.includes(key)) {
+            return;
+          }
+
+          props[key] = {
+            id: key,
+            index: item.index,
+            value: item.value,
+            texture: item.texture,
+          };
+        })
+      }
+
       player.addItem(outfitItem, 1, {
         outfit: {
-          props: appearance.props,
-          drawables: appearance.drawables,
+          props: props,
+          drawables: drawables,
         },
       });
     }
