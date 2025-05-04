@@ -7,7 +7,6 @@
     import IconCheck from '@components/icons/IconCheck.svelte';
     import { slide } from 'svelte/transition';
     import IconPlus from '@components/icons/IconPlus.svelte';
-    import IconImport from '@components/icons/IconImport.svelte';
     import { TOutfitData } from '@typings/apperance';
 
     let renameIndex: number = -1;
@@ -68,7 +67,7 @@
 </script>
 
 {#each $OUTFITS as { label, outfit, id, jobname }, i}
-    <Wrapper label={jobname ? `${label} | JOB` : label}>
+    <Wrapper label={jobname ? `${label} | Travail` : label}>
         <svelte:fragment slot="extra_primary">
             <Dropdown display="Options">
                 <div
@@ -86,18 +85,18 @@
                         }}
                         class="btn w-full">{$LOCALE.EDIT_TITLE}</button
                     >
-                    {#if !jobname}
+                    <!-- {#if !jobname}
                         <button
                             disabled={jobname != null && !$JOBDATA.isBoss}
                             on:click={() => handleOutfitAction('share', id)}
                             class="btn w-full"
                             >{$LOCALE.SHAREOUTFIT_TITLE}</button
                         >
-                    {/if}
-                    <button
+                    {/if} -->
+                    <!-- <button
                         on:click={() => handleOutfitAction('item', i, outfit, label)}
                         class="btn w-full">{$LOCALE.ITEMOUTFIT_TITLE}</button
-                    >
+                    > -->
                     <button
                         disabled={jobname != null && !$JOBDATA.isBoss}
                         on:click={() => {
@@ -248,7 +247,7 @@
             </Wrapper>
         </div>
     {:else}
-        <button
+        <!-- <button
             transition:slide
             class="btn w-full h-[3vh] flex items-center justify-center gap-[0.5vh]"
             on:click={() => {
@@ -259,7 +258,7 @@
                 <IconPlus />
             </div>
             <p>{$LOCALE.ADDOUTFIT_TITLE}</p>
-        </button>
+        </button> -->
 
         {#if $JOBDATA.isBoss}
             <button
@@ -276,7 +275,7 @@
             </button>
         {/if}
 
-        <button
+        <!-- <button
             transition:slide
             class="btn w-full h-[3vh] flex items-center justify-center gap-[0.5vh] mt-[0.5vh]"
             on:click={() => {
@@ -287,6 +286,6 @@
                 <IconImport />
             </div>
             <p>{$LOCALE.IMPORTOUTFIT_TITLE}</p>
-        </button>
+        </button> -->
     {/if}
 </div>
