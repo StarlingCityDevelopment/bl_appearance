@@ -41,4 +41,5 @@ file_set 'locale' {
 
 dependencies {
     'bl_bridge',
+    'gs_blips',
 }
