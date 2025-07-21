@@ -1,10 +1,11 @@
 lib.addCommand('appearance', {
-    help = 'Open the appearance menu',
+    help = 'Ouvrir le menu d\'apparence',
     params = {
         {
             name = 'target',
             type = 'playerId',
-            help = 'Target player\'s server id',
+            help = 'ID du serveur du joueur cible',
+            optional = true,
         },
         {
             name = 'type',
@@ -13,9 +14,9 @@ lib.addCommand('appearance', {
             optional = true
         }
     },
-    restricted = 'group.admin'
+    restricted = 'group.helper'
 }, function(source, args, raw)
     local target = args.target or source
-    local type = args.type or 'appearance'
+    local type = args.type or 'admin'
     TriggerClientEvent('bl_appearance:client:open', target, type)
 end)

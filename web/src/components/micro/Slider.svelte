@@ -18,21 +18,20 @@
 </script>
 
 <div class="flex items-center justify-center w-full h-[3vh] gap-[0.5vh]">
-
     <slot name="before" />
 
     <div class="w-full grid place-items-center h-full btn px-[0.5vh]">
         <input
-        class="w-full h-full bg-transparent styled-slider slider-progress"
-        type="range"
-        id="slider"
-        style="--value: {value}; --min: {min}; --max: {max}; --step: {step};"
-        {min}
-        {max}
-        {step}
-        bind:value
-        on:input={onChange}
-    />
+            class="w-full h-full bg-transparent styled-slider slider-progress"
+            type="range"
+            id="slider"
+            style="--value: {value}; --min: {min}; --max: {max}; --step: {step};"
+            {min}
+            {max}
+            {step}
+            bind:value
+            on:input={onChange}
+        />
     </div>
 
     <slot name="after" />

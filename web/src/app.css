@@ -5,12 +5,20 @@
 * {
     margin: 0;
     padding: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     font-smooth: auto;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
      /* border: red solid 1px; */
 }
 
 div {
     scrollbar-gutter: stable;
+    /* Fallback for older browsers */
+    -ms-overflow-style: auto;
+    scrollbar-width: thin;
 }
 
 *:focus {
@@ -47,14 +55,28 @@ input::-webkit-inner-spin-button {
     margin: 0;
 }
 
+/* Firefox number input */
+input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
 
 /* select all number input */
 input[type=number],
 input[type=text] {
-    @apply text-txt-primary transition-all duration-300 ease-in-out hover:brightness-125 font-semibold text-[1.6vh] border border-secondary/50 bg-primary/50 text-center;
+    @apply text-txt-primary transition-all duration-300 ease-in-out hover:brightness-125 font-semibold text-[1.6vh] border-[#FF0000] border-[0.2vh] bg-primary/50 text-center;
 }
 
 input::selection {
+    background: #8685ef80;
+}
+
+input::-moz-selection {
+    background: #8685ef80;
+}
+
+input::-webkit-selection {
     background: #8685ef80;
 }
 
@@ -64,7 +86,7 @@ input::selection {
 
 button.btn,
 .btn {
-    @apply bg-primary/50 border border-secondary/50 transition-all duration-300 ease-in-out hover:brightness-125;
+    @apply bg-primary/50 border-[#FF0000] border-[0.2vh] transition-all duration-300 ease-in-out hover:brightness-125;
 }
 
 button:disabled,
@@ -86,6 +108,12 @@ button:disabled,
     @apply bg-accent
 }
 
+/* Firefox scrollbar styling */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent) var(--primary);
+}
+
 .parent-container {
     position: relative;
     /* Ensure the parent container is positioned */
@@ -95,9 +123,15 @@ button:disabled,
     position: absolute;
     top: 50%;
     left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
 }
 
 .bg-solid {
-    background: radial-gradient(at 50% top, var(--primary) 50%, black); 
+    background: radial-gradient(ellipse at 50% 0%, var(--primary) 50%, black);
+    background: -webkit-radial-gradient(top, var(--primary) 50%, black);
+    background: -moz-radial-gradient(top, var(--primary) 50%, black);
+    background: -o-radial-gradient(top, var(--primary) 50%, black);
 }

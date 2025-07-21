@@ -1,0 +1,69 @@
+name: Zip Creator
+
+on:
+  push:
+
+jobs:
+  create-zip:
+    name: Build and Create Downloadable Zip
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install archive tools
+        run: sudo apt install zip
+
+      - name: Checkout source code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.repository.default_branch }}
+
+      - uses: pnpm/action-setup@v4.1.0
+        with:
+          version: latest
+
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: current
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Install web dependencies
+        run: pnpm install
+        working-directory: web
+
+      - name: Run build
+        run: pnpm build
+        env:
+          CI: false
+
+      - name: Bundle files
+        run: |
+          mkdir -p ./temp/bl_appearance
+          mkdir -p ./temp/bl_appearance/locale/
+          cp ./fxmanifest.lua ./temp/bl_appearance
+          cp ./{locale/en.json,locale/fr.json} ./temp/bl_appearance/locale
+          cp -r ./{build,data,dist} ./temp/bl_appearance
+          cd ./temp && zip -r ../bl_appearance.zip ./bl_appearance
+      - name: Create Release
+        uses: 'marvinpinto/action-automatic-releases@v1.2.1'
+        with:
+          automatic_release_tag: "latest"
+          repo_token: '${{ secrets.GITHUB_TOKEN }}'
+          title: 'Ready to download'
+          prerelease: true
+          files: bl_appearance.zip
+
+        env:
+          CI: false
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Repository Dispatch
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.PAT }}
+          repository: StarlingCityDevelopment/resources
+          event-type: update-resources
+          client-payload: '{"res": "bl_appearance"}' 

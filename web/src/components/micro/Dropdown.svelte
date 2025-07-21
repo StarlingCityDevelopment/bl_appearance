@@ -44,7 +44,7 @@
     {#if menuOpen}
         <div
             transition:slide|global
-            class="w-full max-h-[30vh] bg-secondary/50 p-[0.5vh] flex items-center justify-start flex-col overflow-auto gap-[0.5vh]"
+            class="w-full max-h-[40vh] p-[0.5vh] flex items-center justify-start flex-col overflow-auto gap-[0.5vh]"
         >
             <slot />
         </div>

@@ -44,18 +44,16 @@ export async function openMenu(zone: TAppearanceZone | TAppearanceZone['type'], 
     if (creation) {
         const model = GetHashKey(getPlayerGenderModel());
         pedHandle = await setModel(pedHandle, model);
+        emit('ox_inventory:setInitialCreation')
         emitNet('bl_appearance:server:setroutingbucket')
         promise = new Promise(resolve => {
             resolvePromise = resolve;
         });
-
         updatePed(pedHandle)
     }
 
     const appearance = await getAppearance(pedHandle)
-
     startCamera()
-
 
     sendNUIEvent(Send.data, {
         tabs,

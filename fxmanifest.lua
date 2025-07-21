@@ -8,8 +8,8 @@ version '1.3.5'
 description 'Customize your virtual persona with precision using the Byte Labs Appearance Menu'
 repository 'https://github.com/Byte-Labs-Studio/bl_appearance'
 
-ui_page 'build/index.html'
--- ui_page 'http://localhost:3000/' --for dev
+-- ui_page 'build/index.html'
+ui_page 'http://localhost:3000/' --for dev
 
 server_scripts {
     'data/config.lua',
@@ -29,7 +29,8 @@ client_scripts {
     'data/models.lua',
     'data/tattoos.lua',
     'data/zones.lua',
-    'dist/client/**/*.js'}
+    'dist/client/**/*.js'
+}
 
 files {
     'build/**',
@@ -41,5 +42,5 @@ file_set 'locale' {
 
 dependencies {
     'bl_bridge',
-    'bl_sprites'
+    'gs_blips',
 }

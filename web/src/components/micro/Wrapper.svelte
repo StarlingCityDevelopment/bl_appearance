@@ -3,8 +3,13 @@
 </script>
 
 <div class="w-full h-fit flex flex-col items-end justify-center pt-[0.5vh] gap-[0.5vh]">
-    <p class="text-[2vh] uppercase font-semibold">{label}</p>
-
+    <p class="text-[2vh] uppercase font-semibold text-end">{label}</p>
+    <div class="w-full h-[0.1vh] bg-white opacity-25"></div>
+    {#if $$slots.default}
+        <div class="flex items-center justify-center w-full mt-[0.5vh] mb-[1vh]">
+            <slot />
+        </div>
+    {/if}
     {#if $$slots.primary || $$slots.secondary}
         <div class="flex items-center justify-center w-full gap-[1vh]">
             {#if $$slots.primary}

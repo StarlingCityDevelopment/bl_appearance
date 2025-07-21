@@ -1,9 +1,9 @@
 Config = {
-    locale = 'en',
+    locale = 'fr',
     openControl = 'E',
-    previousClothing = 'qb', -- 'illenium' | 'qb' | 'esx' | 'fivem-appearance'
+    previousClothing = 'illenium', -- 'illenium' | 'qb' | 'esx' | 'fivem-appearance'
     textUi = true, -- if true, uses textUI | if false, uses sprite
-    outfitItem = 'clothes', -- Item given to the player when they want to make outfit an item to use
+    outfitItem = 'clothes_outfits', -- Item given to the player when they want to make outfit an item to use
 }
 
 exports('config', function()

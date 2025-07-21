@@ -32,11 +32,12 @@ RegisterNuiCallback(Receive.save, async (appearance: TAppearance, cb: Function) 
 
 	const newAppearance = await getAppearance(ped);
 	newAppearance.tattoos = appearance.tattoos || null
-	triggerServerCallback('bl_appearance:server:saveAppearance', getFrameworkID(), newAppearance);
 
+	emit('ox_inventory:checkClothes')
+	//triggerServerCallback('bl_appearance:server:saveAppearance', getFrameworkID(), newAppearance);
 	setPedTattoos(ped, newAppearance.tattoos);
-
 	closeMenu();
+
 	cb(1);
 });
 
@@ -46,15 +47,11 @@ RegisterNuiCallback(Receive.setModel, async (model: string, cb: Function) => {
 		return cb(0);
 	}
 
-
 	const newPed = await setModel(ped, hash);
-
     updatePed(newPed)
 
 	const appearance = await getAppearance(ped);
-
 	appearance.tattoos = [];
-
 	setPedTattoos(ped, []);
 
 	cb(appearance);

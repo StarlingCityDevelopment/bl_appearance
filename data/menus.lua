@@ -1,6 +1,11 @@
 local menus = {
-	appearance = {
+	admin = {
 		tabs = { "heritage", "hair", "clothes", "accessories", "face", "makeup", "outfits", "tattoos" },
+		allowExit = true,
+	},
+
+	appearance = {
+		tabs = { "heritage", "hair", "clothes", "accessories", "face", "makeup", "tattoos" },
 		allowExit = true,
 	},
 

@@ -2,13 +2,19 @@
 
 local stores = {
     {
-        type = 'appearance',
-        coords = vector4(455.56, -990.74, 30.69, 84.66),
-        jobs = {'police'}
+        type = 'outfits',
+        coords = vec4(82.72, -365.3, 41.33, 255.61),
+        jobs = { 'police' }
     },
     {
-        type = 'clothing',
-        coords = vector4(1693.2, 4828.11, 42.07, 188.66),
+        type = 'outfits',
+        coords = vector4(-193.72, -1331.31, 31.61, 1.14),
+        jobs = { 'bennys' }
+    },
+    {
+        type = 'outfits',
+        coords = vector4(-193.72, -1331.31, 31.61, 1.14),
+        jobs = { 'bennys' }
     },
     {
         type = 'clothing',
@@ -40,23 +46,7 @@ local stores = {
     },
     {
         type = 'clothing',
-        coords = vector4(9.22, 6515.74, 31.88, 131.27),
-    },
-    {
-        type = 'clothing',
-        coords = vector4(615.35, 2762.72, 42.09, 170.51),
-    },
-    {
-        type = 'clothing',
-        coords = vector4(1191.61, 2710.91, 38.22, 269.96),
-    },
-    {
-        type = 'clothing',
         coords = vector4(-3171.32, 1043.56, 20.86, 334.3),
-    },
-    {
-        type = 'clothing',
-        coords = vector4(-1105.52, 2707.79, 19.11, 317.19),
     },
     {
         type = 'clothing',
@@ -80,19 +70,11 @@ local stores = {
     },
     {
         type = 'barber',
-        coords = vector4(1931.41, 3729.73, 32.84, 212.08),
-    },
-    {
-        type = 'barber',
         coords = vector4(1212.8, -472.9, 65.2, 60.94),
     },
     {
         type = 'barber',
         coords = vector4(-32.9, -152.3, 56.1, 335.22),
-    },
-    {
-        type = 'barber',
-        coords = vector4(-278.1, 6228.5, 30.7, 49.32),
     },
     {
         type = 'tattoos',
@@ -109,79 +91,33 @@ local stores = {
     {
         type = 'tattoos',
         coords = vector4(-3169.52, 1074.86, 20.83, 253.29),
-
     },
-    {
-        type = 'tattoos',
-        coords = vector4(1864.1, 3747.91, 33.03, 17.23),
-
-    },
-    {
-        type = 'tattoos',
-        coords = vector4(-294.24, 6200.12, 31.49, 195.72),
-    },
-    {
-        type = 'surgeon',
-        coords = vector4(298.78, -572.81, 43.26, 114.27),
-    }
 }
 
-local key = Config.openControl
-local control = Config.openControl
-local textUi = Config.textUi and exports.bl_bridge:textui()
 local currentZone = nil
-local sprites = {}
 
 local function setupZones()
-    if not textUi and GetResourceState('bl_sprites') == 'missing' then
-        return
-    end
-
-    for _, v in pairs(stores) do
-        local point = lib.points.new({
-            coords = v.coords,
-            distance = 3.0,
-        })
-
-        function point:onEnter()
-            currentZone = v
-            if textUi then
-                local prefix = "[" .. control .. "] - "
-                local displayText = ""
-                if currentZone.type == 'barber' then
-                    displayText = "Barber Shop"
-                elseif currentZone.type == 'tattoos' then
-                    displayText = "Tattoo Parlor"
-                elseif currentZone.type == 'clothing' then
-                    displayText = "Clothing Store"
-                elseif currentZone.type == 'surgeon' then
-                    displayText = "Surgeon"
-                end
-                textUi.showTextUI(prefix .. displayText, 'left')
-            end
-        end
-
-        function point:onExit()
-            currentZone = nil
-            if textUi then
-                textUi.hideTextUI()
-            end
-        end
-
-        if not textUi then
-            sprites[#sprites+1] = exports.bl_sprites:sprite({
-                coords = v.coords,
-                shape = 'hex',
-                key = key,
-                distance = 3.0,
-                onEnter = function()
+    for id, v in pairs(stores) do
+        exports.sleepless_interact:addCoords(vector3(v.coords.x, v.coords.y, v.coords.z), {
+            {
+                label = (v.type == 'barber' and "Barbier") or (v.type == 'tattoos' and "Tattoueur") or (v.type == 'clothing' and "Magasin de vêtements") or (v.type == 'surgeon' and "Chirurgien") or (v.type =='outfits' and "Vestiaires"),
+                icon = "tshirt",
+                distance = 5.0,
+                onSelect = function()
+                    if not currentZone then return end
+                    TriggerEvent('bl_appearance:client:useZone', currentZone.type)
+                end,
+                canInteract = function(entity, distance, coords, name)
+                    return distance < 2.5
+                end,
+                onActive = function()
                     currentZone = v
                 end,
-                onExit = function()
+                onInactive = function()
                     currentZone = nil
-                end
-            })
-        end
+                end,
+            }
+        })
     end
 end
 
@@ -190,34 +126,48 @@ setupZones()
 local blips = {}
 local function createBlips()
     for _, v in ipairs(stores) do
-        if v.type ~= 'appearance' then
-            local blip = AddBlipForCoord(v.coords.x, v.coords.y, v.coords.z)
-            local spriteId, blipColor, blipname
+        if v.type ~= 'appearance' and v.type ~= 'outfits' then
+            local spriteId, blipColor, blipname, bliplabel, blipdesc
+
             if v.type == 'barber' then
                 spriteId = 71
-                blipColor = 0
-                blipname = 'Barber Shop'
+                blipColor = 35
+                blipname = 'Salon de Coiffure'
+                bliplabel = '💈 ' .. blipname
+                blipdesc = 'Changez votre apparence avec une nouvelle coupe de cheveux.'
             elseif v.type == 'clothing' then
                 spriteId = 73
-                blipColor = 0
-                blipname = 'Clothing Store'
+                blipColor = 48
+                blipname = 'Magasin de vêtements'
+                bliplabel = '👕 ' .. blipname
+                blipdesc = 'Achetez de nouveaux vêtements pour changer votre apparence.'
             elseif v.type == 'tattoos' then
                 spriteId = 75
-                blipColor = 4
-                blipname = 'Tattoo Parlor'
+                blipColor = 49
+                blipname = 'Salon de Tatouage'
+                bliplabel = '💉 ' .. blipname
+                blipdesc = 'Changez votre apparence avec de nouveaux tatouages.'
             elseif v.type == 'surgeon' then
                 spriteId = 102
                 blipColor = 4
                 blipname = 'Surgeon'
             end
-            SetBlipSprite(blip, spriteId)
-            SetBlipColour(blip, blipColor)
-            SetBlipAsShortRange(blip, true)
-            SetBlipScale(blip, 0.6)
-            BeginTextCommandSetBlipName('STRING')
-            AddTextComponentString(blipname)
-            EndTextCommandSetBlipName(blip)
-            blips[#blips+1] = blip
+
+            if not spriteId then
+                return
+            end
+
+            blips[#blips + 1] = exports.gs_blips:CreateBlip({
+                coords = vector3(v.coords.x, v.coords.y, v.coords.z),
+                sprite = spriteId,
+                scale = v.type == 'barber' and 0.7 or 0.65,
+                color = blipColor,
+                label = blipname,
+                data = {
+                    title = bliplabel,
+                    description = blipdesc,
+                },
+            })
         end
     end
 end
@@ -229,21 +179,5 @@ AddEventHandler('onResourceStop', function(resource)
         for _, blip in pairs(blips) do
             RemoveBlip(blip)
         end
-
-        if not textUi then
-            for _, sprite in pairs(sprites) do
-                sprite:removeSprite()
-            end
-        end
     end
 end)
-
-lib.addKeybind({
-    name = 'OpenAppearance',
-    description = 'Opens Appearance Menu.',
-    defaultKey = key,
-    onPressed = function(self)
-        if not currentZone then return end
-        TriggerEvent('bl_appearance:client:useZone', currentZone.type)
-    end
-})

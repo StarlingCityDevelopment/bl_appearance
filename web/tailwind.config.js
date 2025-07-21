@@ -18,9 +18,9 @@ export default {
   theme: {
     extend: {
         colors: {
-            'primary': '#252525',
-            'secondary': '#3C3C3C',
-            'accent': '#8685ef',
+            'primary': '#000',
+            'secondary': '#FF0000',
+            'accent': '#FF0000',
 
             'success': '#7FEB9D',
             'error': '#E5283E',
