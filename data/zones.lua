@@ -4,7 +4,7 @@ local stores = {
     {
         type = 'outfits',
         coords = vec4(-173.16, 306.09, 100.92, 357.39),
-        jobs = { 'yakuza' }
+        jobs = { 'tsubaki' }
     },
 --    {
 --        type = 'outfits',
