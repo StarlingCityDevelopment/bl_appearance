@@ -1,11 +1,11 @@
 --https://github.com/iLLeniumStudios/illenium-appearance/blob/main/shared/config.lua
 
 local stores = {
---    {
---        type = 'outfits',
---        coords = vec4(82.72, -365.3, 41.33, 255.61),
---        jobs = { 'police' }
---    },
+    {
+        type = 'outfits',
+        coords = vec4(-173.16, 306.09, 100.92, 357.39),
+        jobs = { 'yakuza' }
+    },
 --    {
 --        type = 'outfits',
 --        coords = vector4(-193.72, -1331.31, 31.61, 1.14),
