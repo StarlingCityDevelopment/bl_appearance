@@ -1,28 +1,28 @@
 --https://github.com/iLLeniumStudios/illenium-appearance/blob/main/shared/config.lua
 
 local stores = {
+--    {
+--        type = 'outfits',
+--        coords = vec4(82.72, -365.3, 41.33, 255.61),
+--        jobs = { 'police' }
+--    },
+--    {
+--        type = 'outfits',
+--        coords = vector4(-193.72, -1331.31, 31.61, 1.14),
+--        jobs = { 'bennys' }
+--    },
+--    {
+--        type = 'outfits',
+--        coords = vector4(-193.72, -1331.31, 31.61, 1.14),
+--        jobs = { 'bennys' }
+--    },
     {
-        type = 'outfits',
-        coords = vec4(82.72, -365.3, 41.33, 255.61),
-        jobs = { 'police' }
-    },
-    {
-        type = 'outfits',
-        coords = vector4(-193.72, -1331.31, 31.61, 1.14),
-        jobs = { 'bennys' }
-    },
-    {
-        type = 'outfits',
-        coords = vector4(-193.72, -1331.31, 31.61, 1.14),
-        jobs = { 'bennys' }
+        type = 'clothing',
+        coords = vector4(-715.87, -148.15, 37.61, 203.35),
     },
     {
         type = 'clothing',
-        coords = vector4(-705.5, -149.22, 37.42, 122),
-    },
-    {
-        type = 'clothing',
-        coords = vector4(-1192.61, -768.4, 17.32, 216.6),
+        coords = vector4(-1188.96, -771.77, 17.33, 51.56),
     },
     {
         type = 'clothing',
@@ -30,11 +30,7 @@ local stores = {
     },
     {
         type = 'clothing',
-        coords = vector4(-168.73, -301.41, 39.73, 238.67),
-    },
-    {
-        type = 'clothing',
-        coords = vector4(75.39, -1398.28, 29.38, 6.73),
+        coords = vector4(-163.13, -311.11, 39.93, 330.47),
     },
     {
         type = 'clothing',
@@ -42,27 +38,19 @@ local stores = {
     },
     {
         type = 'clothing',
-        coords = vector4(-1445.86, -240.78, 49.82, 36.17),
+        coords = vector4(-1447.67, -230.32, 50.0, 136.37),
     },
     {
         type = 'clothing',
-        coords = vector4(-3171.32, 1043.56, 20.86, 334.3),
+        coords = vector4(-3176.53, 1045.34, 20.86, 248.66),
     },
     {
         type = 'clothing',
-        coords = vector4(-1119.24, -1440.6, 5.23, 300.5),
-    },
-    {
-        type = 'clothing',
-        coords = vector4(124.82, -224.36, 54.56, 335.41),
+        coords = vector4(119.5, -222.82, 54.56, 250.3),
     },
     {
         type = 'barber',
         coords = vector4(-814.22, -183.7, 37.57, 116.91),
-    },
-    {
-        type = 'barber',
-        coords = vector4(136.78, -1708.4, 29.29, 144.19),
     },
     {
         type = 'barber',
@@ -78,19 +66,19 @@ local stores = {
     },
     {
         type = 'tattoos',
-        coords = vector4(1322.6, -1651.9, 51.2, 42.47),
+        coords = vector4(1321.76, -1652.94, 52.28, 305.7),
     },
     {
         type = 'tattoos',
-        coords = vector4(-1154.01, -1425.31, 4.95, 23.21),
+        coords = vector4(-1155.46, -1426.67, 4.95, 308.04),
     },
     {
         type = 'tattoos',
-        coords = vector4(322.62, 180.34, 103.59, 156.2),
+        coords = vector4(324.03, 179.88, 103.59, 86.47),
     },
     {
         type = 'tattoos',
-        coords = vector4(-3169.52, 1074.86, 20.83, 253.29),
+        coords = vector4(-3169.33, 1076.72, 20.83, 148.46),
     },
 }
 
