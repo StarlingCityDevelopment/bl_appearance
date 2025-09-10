@@ -16,13 +16,13 @@
   "author": "Byte Labs",
   "license": "ISC",
   "devDependencies": {
-    "@citizenfx/client": "2.0.17212-1",
-    "@citizenfx/server": "2.0.14862-1",
-    "@types/node": "^24.0.15",
-    "concurrently": "^9.2.0",
-    "esbuild": "^0.25.8",
+    "@citizenfx/client": "2.0.19032-1",
+    "@citizenfx/server": "2.0.19032-1",
+    "@types/node": "^24.3.1",
+    "concurrently": "^9.2.1",
+    "esbuild": "^0.25.9",
     "rimraf": "^6.0.1",
-    "typescript": "^5.8.3"
+    "typescript": "^5.9.2"
   },
   "dependencies": {
     "@overextended/oxmysql": "^1.4.2"
