@@ -36,11 +36,20 @@ RegisterNuiCallback(Receive.save, async (appearance: TAppearance, cb: Function) 
 	if (exports.ox_inventory.IsInitialCreation()) {
 		triggerServerCallback('bl_appearance:server:saveAppearance', getFrameworkID(), newAppearance);
 	} else {
-		triggerServerCallback('bl_appearance:server:saveTattoos', getFrameworkID(), newAppearance);
+		const skin = {
+			headBlend: newAppearance.headBlend,
+			headStructure: newAppearance.headStructure,
+			hairColor: newAppearance.hairColor,
+			model: newAppearance.model,
+		};
+		const tattoos = newAppearance.tattoos || [];
+
+		triggerServerCallback('bl_appearance:server:saveSkin', getFrameworkID(), skin);
+		triggerServerCallback('bl_appearance:server:saveTattoos', getFrameworkID(), tattoos);
 	}
 
-	emit('ox_inventory:checkClothes')
 	setPedTattoos(ped, newAppearance.tattoos);
+	emit('ox_inventory:checkClothes')
 	closeMenu();
 
 	cb(1);
@@ -53,7 +62,7 @@ RegisterNuiCallback(Receive.setModel, async (model: string, cb: Function) => {
 	}
 
 	const newPed = await setModel(ped, hash);
-    updatePed(newPed)
+	updatePed(newPed)
 
 	const appearance = await getAppearance(ped);
 	appearance.tattoos = [];
@@ -133,7 +142,7 @@ RegisterNuiCallback(Receive.toggleItem, async (data: TToggleData, cb: Function) 
 		if (current.value === currentDrawable) {
 			SetPedComponentVariation(ped, index, item.off, 0, 0);
 			if (hook) {
-				for(let i=0; i < hook.drawables?.length; i++) {
+				for (let i = 0; i < hook.drawables?.length; i++) {
 					const hookItem = hook.drawables[i];
 					SetPedComponentVariation(ped, hookItem.component, hookItem.variant, hookItem.texture, 0);
 				}
@@ -142,7 +151,7 @@ RegisterNuiCallback(Receive.toggleItem, async (data: TToggleData, cb: Function) 
 			return;
 		} else {
 			setDrawable(ped, current);
-			for(let i=0; i < hookData?.length; i++) {
+			for (let i = 0; i < hookData?.length; i++) {
 				setDrawable(ped, hookData[i]);
 			}
 			cb(false);
@@ -157,7 +166,7 @@ RegisterNuiCallback(Receive.saveOutfit, async (data: any, cb: Function) => {
 	cb(result);
 });
 
-RegisterNuiCallback(Receive.deleteOutfit, async ({id}, cb: Function) => {
+RegisterNuiCallback(Receive.deleteOutfit, async ({ id }, cb: Function) => {
 	const result = await triggerServerCallback('bl_appearance:server:deleteOutfit', id);
 	cb(result);
 });
@@ -183,7 +192,7 @@ RegisterNuiCallback(Receive.fetchOutfit, async ({ id }, cb: Function) => {
 	cb(result);
 });
 
-RegisterNuiCallback(Receive.itemOutfit, async (data: {outfit: TOutfitData, label: string}, cb: Function) => {
+RegisterNuiCallback(Receive.itemOutfit, async (data: { outfit: TOutfitData, label: string }, cb: Function) => {
 	const result = await triggerServerCallback('bl_appearance:server:itemOutfit', data);
 	cb(result);
 });
@@ -192,19 +201,19 @@ const animDict = 'missmic4'
 const anim = 'michael_tux_fidget'
 
 async function playOutfitEmote() {
-    // while not HasAnimDictLoaded(e.Dict) do RequestAnimDict(e.Dict) Wait(100) end
+	// while not HasAnimDictLoaded(e.Dict) do RequestAnimDict(e.Dict) Wait(100) end
 
-    while (!HasAnimDictLoaded(animDict)) {
-        RequestAnimDict(animDict);
-        await Delay(100);
-    }
+	while (!HasAnimDictLoaded(animDict)) {
+		RequestAnimDict(animDict);
+		await Delay(100);
+	}
 
-    TaskPlayAnim(ped, animDict, anim, 3.0, 3.0, 1200, 51, 0.0, false, false, false);
+	TaskPlayAnim(ped, animDict, anim, 3.0, 3.0, 1200, 51, 0.0, false, false, false);
 }
 
 
 onNet('bl_appearance:client:useOutfitItem', async (outfit: TOutfitData) => {
-    await playOutfitEmote()
+	await playOutfitEmote()
 	setPedClothes(ped, outfit);
-    triggerServerCallback('bl_appearance:server:saveClothes', getFrameworkID(), outfit)
+	triggerServerCallback('bl_appearance:server:saveClothes', getFrameworkID(), outfit)
 })
