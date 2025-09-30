@@ -69,15 +69,15 @@ input[type=text] {
 }
 
 input::selection {
-    background: #8685ef80;
+    background: #ef858580;
 }
 
 input::-moz-selection {
-    background: #8685ef80;
+    background: #ef858580;
 }
 
 input::-webkit-selection {
-    background: #8685ef80;
+    background: #ef858580;
 }
 
 .btn-base {

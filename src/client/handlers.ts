@@ -33,10 +33,13 @@ RegisterNuiCallback(Receive.save, async (appearance: TAppearance, cb: Function) 
 	const newAppearance = await getAppearance(ped);
 	newAppearance.tattoos = appearance.tattoos || null
 
-	emit('ox_inventory:checkClothes')
 	if (exports.ox_inventory.IsInitialCreation()) {
 		triggerServerCallback('bl_appearance:server:saveAppearance', getFrameworkID(), newAppearance);
+	} else {
+		triggerServerCallback('bl_appearance:server:saveTattoos', getFrameworkID(), newAppearance);
 	}
+
+	emit('ox_inventory:checkClothes')
 	setPedTattoos(ped, newAppearance.tattoos);
 	closeMenu();
 
