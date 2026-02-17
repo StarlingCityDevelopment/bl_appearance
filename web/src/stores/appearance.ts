@@ -272,11 +272,15 @@ const APPEARANCE_INIT = () => {
                 index: prop.index,
                 texture: prop.texture,
                 isTexture: isTexture,
-            }).then((propTotal: number) => {
+                collection: isTexture ? prop.collection : undefined,
+                localIndex: isTexture ? prop.localIndex : undefined
+            }).then((response: { textures: number, collection: string, localIndex: number }) => {
                 store.update(appearance => {
                     if (!isTexture) {
-                        appearance.propTotal[prop.id].textures = propTotal;
+                        appearance.propTotal[prop.id].textures = response.textures;
                         prop.texture = 0;
+                        prop.collection = response.collection;
+                        prop.localIndex = response.localIndex;
                     }
                     appearance.props[prop.id] = prop;
                     return appearance;
@@ -303,12 +307,16 @@ const APPEARANCE_INIT = () => {
                 index: drawable.index,
                 texture: drawable.texture,
                 isTexture: isTexture,
-            }).then((drawableTotal: number) => {
+                collection: isTexture ? drawable.collection : undefined,
+                localIndex: isTexture ? drawable.localIndex : undefined
+            }).then((response: { textures: number, collection: string, localIndex: number }) => {
                 store.update(appearance => {
                     if (!isTexture) {
                         appearance.drawTotal[drawable.id].textures =
-                            drawableTotal;
+                            response.textures;
                         drawable.texture = 0;
+                        drawable.collection = response.collection;
+                        drawable.localIndex = response.localIndex;
                     }
                     appearance.drawables[drawable.id] = drawable;
                     return appearance;

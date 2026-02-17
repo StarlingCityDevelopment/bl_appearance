@@ -14,7 +14,7 @@ async function getSkin(src: number, frameworkId: string) {
     return JSON.parse(response);
 }
 onClientCallback('bl_appearance:server:getSkin', getSkin);
-exports('GetPlayerSkin', function(id) {
+exports('GetPlayerSkin', function (id) {
     return getSkin(null, id)
 });
 
@@ -30,7 +30,7 @@ async function getClothes(src: number, frameworkId: string) {
     return JSON.parse(response);
 }
 onClientCallback('bl_appearance:server:getClothes', getClothes);
-exports('GetPlayerClothes', function(id) {
+exports('GetPlayerClothes', function (id) {
     return getClothes(null, id)
 });
 
@@ -46,13 +46,13 @@ async function getTattoos(src: number, frameworkId: string) {
     return JSON.parse(response) || [];
 }
 onClientCallback('bl_appearance:server:getTattoos', getTattoos);
-exports('GetPlayerTattoos', function(id) {
+exports('GetPlayerTattoos', function (id) {
     return getTattoos(null, id)
 });
 
 async function getAppearance(src: number, frameworkId: string) {
     if (!frameworkId && !src) return null;
-    
+
     if (!frameworkId) {
         frameworkId = getFrameworkID(src);
     }
@@ -72,6 +72,6 @@ async function getAppearance(src: number, frameworkId: string) {
     return appearance;
 }
 onClientCallback('bl_appearance:server:getAppearance', getAppearance);
-exports('GetPlayerAppearance', function(id) {
+exports('GetPlayerAppearance', function (id) {
     return getAppearance(null, id)
 });

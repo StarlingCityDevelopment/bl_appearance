@@ -1,13 +1,22 @@
 import { TAppearance, THairColor, TClothes, TSkin, TValue, THeadStructure, HeadOverlayData } from "@typings/appearance";
 import TOGGLE_INDEXES from "@data/toggles"
-import { requestModel, ped, updatePed, isPedFreemodeModel} from '@utils';
+import { requestModel, ped, updatePed, isPedFreemodeModel } from '@utils';
 import { TTattoo } from "@typings/tattoos";
 
 export function setDrawable(pedHandle: number, data: TValue) {
     if (!data) return console.warn('No data provided for setDrawable')
 
-    SetPedComponentVariation(pedHandle, data.index, data.value, data.texture, 0)
-    return GetNumberOfPedTextureVariations(pedHandle, data.index, data.value)
+    if (data.collection) {
+        SetPedCollectionComponentVariation(pedHandle, data.index, data.collection, data.localIndex !== undefined ? data.localIndex : data.value, data.texture, 0)
+    } else {
+        SetPedComponentVariation(pedHandle, data.index, data.value, data.texture, 0)
+    }
+
+    return {
+        textures: GetNumberOfPedTextureVariations(pedHandle, data.index, data.value),
+        collection: GetPedDrawableVariationCollectionName(pedHandle, data.index),
+        localIndex: GetPedDrawableVariationCollectionLocalIndex(pedHandle, data.index)
+    }
 }
 exports('SetPedDrawable', setDrawable);
 
@@ -19,8 +28,17 @@ export function setProp(pedHandle: number, data: TValue) {
         return
     }
 
-    SetPedPropIndex(pedHandle, data.index, data.value, data.texture, false)
-    return GetNumberOfPedPropTextureVariations(pedHandle, data.index, data.value)
+    if (data.collection) {
+        SetPedCollectionPropIndex(pedHandle, data.index, data.collection, data.localIndex !== undefined ? data.localIndex : data.value, data.texture, false)
+    } else {
+        SetPedPropIndex(pedHandle, data.index, data.value, data.texture, false)
+    }
+
+    return {
+        textures: GetNumberOfPedPropTextureVariations(pedHandle, data.index, data.value),
+        collection: GetPedPropCollectionName(pedHandle, data.index),
+        localIndex: GetPedPropCollectionLocalIndex(pedHandle, data.index)
+    }
 }
 exports('SetPedProp', setProp);
 
@@ -86,7 +104,7 @@ exports('SetPedFaceFeature', setFaceFeature);
 
 export function setFaceFeatures(pedHandle: number, data: THeadStructure) {
     if (!data) return console.warn('No data provided for setFaceFeatures')
-        
+
 
     for (const feature in data) {
         const value = data[feature]
@@ -180,7 +198,7 @@ export function setPedClothes(pedHandle: number, data: TClothes) {
     }
 
     if (headOverlay) for (const id in headOverlay) {
-        const overlay = {...headOverlay[id], id: id}
+        const overlay = { ...headOverlay[id], id: id }
         setHeadOverlay(pedHandle, overlay)
     }
 }
@@ -197,7 +215,7 @@ export const setPedSkin = async (pedHandle: number, data: TSkin) => {
     const headBlend = data.headBlend
 
     if (headBlend) setHeadBlend(pedHandle, headBlend)
-    
+
     if (headStructure) setFaceFeatures(pedHandle, headStructure)
 }
 exports('SetPedSkin', setPedSkin);

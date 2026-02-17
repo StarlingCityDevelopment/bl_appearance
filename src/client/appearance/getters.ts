@@ -123,8 +123,10 @@ export function getDrawables(pedHandle: number) {
         drawables[name] = {
             id: name,
             index: i,
-            value: GetPedDrawableVariation(pedHandle, i),
-            texture: GetPedTextureVariation(pedHandle, i)
+            value: current,
+            texture: GetPedTextureVariation(pedHandle, i),
+            collection: GetPedDrawableVariationCollectionName(pedHandle, i),
+            localIndex: GetPedDrawableVariationCollectionLocalIndex(pedHandle, i)
         }
     }
 
@@ -150,8 +152,10 @@ export function getProps(pedHandle: number) {
         props[name] = {
             id: name,
             index: i,
-            value: GetPedPropIndex(pedHandle, i),
-            texture: GetPedPropTextureIndex(pedHandle, i)
+            value: current,
+            texture: GetPedPropTextureIndex(pedHandle, i),
+            collection: GetPedPropCollectionName(pedHandle, i),
+            localIndex: GetPedPropCollectionLocalIndex(pedHandle, i)
         }
     }
 
@@ -284,7 +288,8 @@ export async function getTattoos(): Promise<TTattoo[]> {
 exports('GetPlayerTattoos', getTattoos);
 //migration
 
-onServerCallback('bl_appearance:client:migration:setAppearance', (data: {type: string, data: any}) => {
+onServerCallback('bl_appearance:client:migration:setAppearance', (data: { type: string, data: any }) => {
     if (data.type === 'fivem') exports['fivem-appearance'].setPlayerAppearance(data.data)
     if (data.type === 'illenium') exports['illenium-appearance'].setPlayerAppearance(data.data)
+    if (data.type === 'bl_appearance') exports['bl_appearance'].SetPedAppearance(PlayerPedId(), data.data)
 });

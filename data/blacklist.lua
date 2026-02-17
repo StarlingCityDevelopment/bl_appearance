@@ -110,8 +110,8 @@ local blaclistBase = {
 
 exports("blacklist", function()
 	return {
-        groupTypes = BLACKLIST,
-        base = blaclistBase,
-        allowList = ALLOWLIST,
-    }
+		groupTypes = BLACKLIST,
+		base = blaclistBase,
+		allowList = ALLOWLIST,
+	}
 end)

@@ -1,6 +1,6 @@
 import { getFrameworkID, requestLocale, sendNUIEvent, triggerServerCallback, updatePed, ped, getPlayerData, getJobInfo, getPlayerGenderModel } from "@utils"
 import { startCamera, stopCamera } from "./camera"
-import type { TAppearanceZone, TMenuTypes } from "@typings/appearance"
+import type { TAppearanceZone } from "@typings/appearance"
 import { Outfit } from "@typings/outfits"
 import { Send } from "@events"
 import { getAppearance, getTattooData } from "./appearance/getters"
@@ -101,13 +101,13 @@ function getAllowlist(models: string[]) {
 }
 
 function getBlacklist(zone: TAppearanceZone | string) {
-    const {groupTypes, base} = config.blacklist()
+    const { groupTypes, base } = config.blacklist()
 
     if (typeof zone === 'string') return base
 
     if (!groupTypes) return base
 
-    let blacklist = {...base}
+    let blacklist = { ...base }
 
     const playerData = getPlayerData()
 
@@ -117,7 +117,7 @@ function getBlacklist(zone: TAppearanceZone | string) {
         for (const group in groups) {
 
             let skip: boolean = false
-            
+
             if (type == 'jobs' && zone.jobs) {
                 skip = zone.jobs.includes(playerData.job.name)
             }
@@ -129,29 +129,25 @@ function getBlacklist(zone: TAppearanceZone | string) {
             if (!skip) {
                 const groupBlacklist = groups[group]
                 blacklist = Object.assign({}, blacklist, groupBlacklist, {
-                  drawables: Object.assign({}, blacklist.drawables, groupBlacklist.drawables)
+                    drawables: Object.assign({}, blacklist.drawables, groupBlacklist.drawables)
                 })
             }
         }
     }
 
     return blacklist
-
-    // return blacklist
 }
 
 export function closeMenu() {
     SetPedArmour(ped, armour)
-
     stopCamera()
     SetNuiFocus(false, false)
     sendNUIEvent(Send.visible, false)
-
-
     exports.bl_appearance.hideHud(false)
 
     if (resolvePromise) {
         resolvePromise();
     }
+
     open = false
 }

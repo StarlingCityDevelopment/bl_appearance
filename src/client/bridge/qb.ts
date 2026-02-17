@@ -13,6 +13,6 @@ export function QBBridge() {
     })
 
     onNet('qb-clothing:client:openOutfitMenu', () => {
-        openMenu({ type: "outfits", coords: [0, 0, 0, 0] })  
+        openMenu({ type: "outfits", coords: [0, 0, 0, 0] })
     })
 }

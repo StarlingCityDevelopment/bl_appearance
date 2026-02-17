@@ -33,7 +33,7 @@ export function illeniumCompat() {
     });
 
     exportHandler('getPedProps', (ped: number) => {
-        const props: any =  getProps(ped)[0];
+        const props: any = getProps(ped)[0];
         let newProps = [];
         for (const id of props) {
             const prop = props[id];
@@ -181,6 +181,7 @@ export function illeniumCompat() {
             moleAndFreckles: "MolesFreckles",
             eyeColor: "EyeColor"
         }
+
         const index = {
             Blemishes: 0,
             FacialHair: 1,
@@ -197,18 +198,19 @@ export function illeniumCompat() {
             AddBodyBlemishes: 12,
             EyeColor: 13
         }
+
         let convertedOverlay = {};
         for (const key in overlay) {
             const data = overlay[key];
             const overlayKey = convertKey[key];
             convertedOverlay[overlayKey] = {
-                id:	overlayKey,
-                index:	index[overlayKey],
+                id: overlayKey,
+                index: index[overlayKey],
                 overlayValue: data.opacity,
-                colourType:	1,
-                firstColor:	data.color,
+                colourType: 1,
+                firstColor: data.color,
                 secondColor: data.secondColor,
-                overlayOpacity:	data.opacity,
+                overlayOpacity: data.opacity,
             }
         }
 
@@ -263,10 +265,6 @@ export function illeniumCompat() {
             setProp(ped, newProp);
         }
     });
-
-    // exportHandler('setPlayerAppearance', (appearance: TAppearance) => {
-    //     return console.warn('Need to be implemented');
-    // });
 
     exportHandler('setPedAppearance', (ped: number, appearance: TAppearance) => {
         setPedAppearance(ped, appearance)

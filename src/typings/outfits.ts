@@ -8,11 +8,11 @@ interface Outfit {
     job?: { name: string, rank: number } | null;
 }
 
-type TOutfitData  = {
+type TOutfitData = {
     headOverlay: THeadOverlay
     drawables: TDrawables
     props: TProps;
     job?: { name: string, rank: number } | null;
 }
 
-export {Outfit, TOutfitData}
+export { Outfit, TOutfitData }

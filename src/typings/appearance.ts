@@ -1,5 +1,5 @@
 import { TTattoo } from './tattoos';
-import { Outfit} from './outfits';
+import { Outfit } from './outfits';
 
 export type TMenuTypes = 'appearance' | 'outfits' | 'tattoos' | 'clothes' | 'accessories' | 'face' | 'makeup' | 'heritage'
 
@@ -7,15 +7,15 @@ type TVector4 = [number, number, number, number]
 export type TAppearanceZone = {
     type: TMenuTypes,
     coords: TVector4,
-    jobs? : string[]
-    gangs? : string[]
-    groups? : string[]
+    jobs?: string[]
+    gangs?: string[]
+    groups?: string[]
 }
 
 
-interface THairData { 
-    color: number, 
-    highlight: number 
+interface THairData {
+    color: number,
+    highlight: number
 }
 
 // interface for head overlay data
@@ -57,24 +57,26 @@ interface TotalData {
 type PedHandle = number;
 type PedModel = number;
 
-interface THeadBlend  {
-	skinSecond: number
-	skinThird: number
-	shapeSecond: number
-	shapeThird: number
-	shapeFirst: number
-	hasParent: boolean
-	skinMix: number
-	shapeMix: number
-	thirdMix: number
-	skinFirst: number
+interface THeadBlend {
+    skinSecond: number
+    skinThird: number
+    shapeSecond: number
+    shapeThird: number
+    shapeFirst: number
+    hasParent: boolean
+    skinMix: number
+    shapeMix: number
+    thirdMix: number
+    skinFirst: number
 }
 
 export type TValue = {
-	index: number
-	value: number
-	id?: string
+    index: number
+    value: number
+    id?: string
     texture?: number
+    collection?: string
+    localIndex?: number
 }
 
 export type TProps = {
@@ -88,31 +90,31 @@ export type TTotalValue = {
 }
 
 export type TDrawTotal = {
-	[key: string]: TTotalValue
+    [key: string]: TTotalValue
 }
 
 export type TDrawables = {
-	[key: string]: TValue
+    [key: string]: TValue
 }
 
 export type TPropTotal = {
-	[key: string]: TTotalValue
+    [key: string]: TTotalValue
 }
 
 export type THeadOverlay = {
-	[key: string]: HeadOverlayData
+    [key: string]: HeadOverlayData
 }
 export type THairColor = {
-	highlight: number
-	color: number
+    highlight: number
+    color: number
 }
 
 export type THeadStructure = {
-	[key: string]: TValue
+    [key: string]: TValue
 }
 
 export type THeadOverlayTotal = {
-	[key: string]: number
+    [key: string]: number
 }
 
 export type TClothes = {
@@ -138,7 +140,6 @@ export type TAppearance = TClothes & TSkin & {
     outfits?: Outfit[]
 }
 
-
 export type TToggleData = {
     item: string;
     toggle: boolean;
@@ -153,4 +154,4 @@ export type SkinDB = {
     id: number;
 }
 
-export {THeadBlend, THairData, PedModel, PedHandle, TotalData, DrawableData, HeadStructureData, HeadOverlayData}
+export { THeadBlend, THairData, PedModel, PedHandle, TotalData, DrawableData, HeadStructureData, HeadOverlayData }

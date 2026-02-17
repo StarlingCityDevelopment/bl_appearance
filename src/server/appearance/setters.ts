@@ -15,7 +15,7 @@ export async function saveSkin(src: number, frameworkId: string, skin: TSkin) {
     return result;
 }
 onClientCallback('bl_appearance:server:saveSkin', saveSkin);
-exports('SavePlayerSkin', function(id, skin) {
+exports('SavePlayerSkin', function (id, skin) {
     return saveSkin(null, id, skin)
 });
 
@@ -23,7 +23,7 @@ export async function saveClothes(src: number, frameworkId: string, clothes: TCl
     if (!frameworkId) {
         frameworkId = getFrameworkID(src);
     }
-    
+
     const result = await oxmysql.update(
         'UPDATE appearance SET clothes = ? WHERE id = ?',
         [JSON.stringify(clothes), frameworkId]
@@ -31,7 +31,7 @@ export async function saveClothes(src: number, frameworkId: string, clothes: TCl
     return result;
 }
 onClientCallback('bl_appearance:server:saveClothes', saveClothes);
-exports('SavePlayerClothes', function(id, clothes) {
+exports('SavePlayerClothes', function (id, clothes) {
     return saveClothes(null, id, clothes)
 });
 
@@ -39,7 +39,7 @@ export async function saveTattoos(src: number, frameworkId: string, tattoos: TTa
     if (!frameworkId) {
         frameworkId = getFrameworkID(src);
     }
-    
+
     const result = await oxmysql.update(
         'UPDATE appearance SET tattoos = ? WHERE id = ?',
         [JSON.stringify(tattoos), frameworkId]
@@ -47,43 +47,43 @@ export async function saveTattoos(src: number, frameworkId: string, tattoos: TTa
     return result;
 }
 onClientCallback('bl_appearance:server:saveTattoos', saveTattoos);
-exports('SavePlayerTattoos', function(id, tattoos) {
+exports('SavePlayerTattoos', function (id, tattoos) {
     return saveTattoos(null, id, tattoos)
 });
 
 
 export async function saveAppearance(src: number, frameworkId: string, appearance: TAppearance, force?: boolean) {
     if (!force && src && frameworkId && getFrameworkID(src) !== frameworkId) console.warn('You are trying to save an appearance for a different player', src, frameworkId);
-	if (!frameworkId) frameworkId = getFrameworkID(src);
+    if (!frameworkId) frameworkId = getFrameworkID(src);
 
-	const clothes = {
-		drawables: appearance.drawables,
-		props: appearance.props,
-		headOverlay: appearance.headOverlay,
-	};
+    const clothes = {
+        drawables: appearance.drawables,
+        props: appearance.props,
+        headOverlay: appearance.headOverlay,
+    };
 
-	const skin = {
-		headBlend: appearance.headBlend,
-		headStructure: appearance.headStructure,
-		hairColor: appearance.hairColor,
-		model: appearance.model,
-	};
+    const skin = {
+        headBlend: appearance.headBlend,
+        headStructure: appearance.headStructure,
+        hairColor: appearance.hairColor,
+        model: appearance.model,
+    };
 
-	const tattoos = appearance.tattoos || [];
+    const tattoos = appearance.tattoos || [];
 
-	const result = await oxmysql.prepare(
-		'INSERT INTO appearance (id, clothes, skin, tattoos) VALUES (?, ?, ?, ?) ON DUPLICATE KEY UPDATE clothes = VALUES(clothes), skin = VALUES(skin), tattoos = VALUES(tattoos);',
-		[
-			frameworkId,
-			JSON.stringify(clothes),
-			JSON.stringify(skin),
-			JSON.stringify(tattoos),
-		]
-	);
+    const result = await oxmysql.prepare(
+        'INSERT INTO appearance (id, clothes, skin, tattoos) VALUES (?, ?, ?, ?) ON DUPLICATE KEY UPDATE clothes = VALUES(clothes), skin = VALUES(skin), tattoos = VALUES(tattoos);',
+        [
+            frameworkId,
+            JSON.stringify(clothes),
+            JSON.stringify(skin),
+            JSON.stringify(tattoos),
+        ]
+    );
 
-	return result;
+    return result;
 }
 onClientCallback('bl_appearance:server:saveAppearance', saveAppearance);
-exports('SavePlayerAppearance', function(id, appearance) {
+exports('SavePlayerAppearance', function (id, appearance) {
     return saveAppearance(null, id, appearance)
 });

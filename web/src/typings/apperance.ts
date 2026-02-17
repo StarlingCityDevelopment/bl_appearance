@@ -5,13 +5,15 @@ export type TValue = {
 	index: number
 	value: number
 	id?: string
-    texture?: number
+	texture?: number
+	collection?: string
+	localIndex?: number
 }
 
 export type TTotalValue = {
-    index: number
-    total: number
-    textures: number
+	index: number
+	total: number
+	textures: number
 }
 
 export type TDrawables = {
@@ -19,8 +21,8 @@ export type TDrawables = {
 }
 
 export type TReturnDrawables = {
-    drawable: TDrawables[keyof TDrawables]
-    drawTotal: TDrawTotal[keyof TDrawTotal]
+	drawable: TDrawables[keyof TDrawables]
+	drawTotal: TDrawTotal[keyof TDrawTotal]
 }
 
 export type TDrawTotal = {
@@ -28,10 +30,10 @@ export type TDrawTotal = {
 }
 
 export type TProps = {
-    [key: string]: TValue
+	[key: string]: TValue
 }
 
-export type TReturnProps =  {
+export type TReturnProps = {
 	prop: TProps[keyof TProps]
 	propTotal: TPropTotal[keyof TPropTotal]
 }
@@ -54,7 +56,7 @@ export type THeadOverlay = {
 }
 
 export type TEyeColor = {
-    [key: string]: {
+	[key: string]: {
 		index: number
 		id: string
 		value?: number
@@ -89,44 +91,44 @@ export type THeadOverlayTotal = {
 }
 
 export type TPropTextureTotal = {
-    [key: string]: TValue
+	[key: string]: TValue
 }
 
 export type TDrawTextureTotal = {
-    [key: string]: TValue
+	[key: string]: TValue
 }
 
 export type TTattooEntry = {
-    label: string
-    hash: number
-    zone: number
+	label: string
+	hash: number
+	zone: number
 	opacity: number
-    dlc?: string
+	dlc?: string
 }
 
 export type TDLCTattoo = {
-    label: string
-    dlcIndex: number
-    tattoos: TTattooEntry[]
+	label: string
+	dlcIndex: number
+	tattoos: TTattooEntry[]
 }
 
 export type TZoneTattoo = {
-    zone: string
-    zoneIndex: number
-    label: string
-    dlcs: TDLCTattoo[]
+	zone: string
+	zoneIndex: number
+	label: string
+	dlcs: TDLCTattoo[]
 }
 
 export type TTattoo = {
-    zoneIndex: number
-    dlcIndex: number
-    tattoo: TTattooEntry
+	zoneIndex: number
+	dlcIndex: number
+	tattoo: TTattooEntry
 	opacity: number
-    id: number
+	id: number
 }
 
 export type TAppearance = {
-    modelIndex: number
+	modelIndex: number
 	model: number
 	props: TProps
 	drawTotal: TDrawTotal
@@ -137,19 +139,19 @@ export type TAppearance = {
 	headBlend: THeadBlend
 	headStructure: THeadStructure
 	headOverlayTotal: THeadOverlayTotal
-    tattoos: TTattoo[]
+	tattoos: TTattoo[]
 }
 
-export type TOutfitData  = {
-    drawables: TDrawables
-    props: TProps
+export type TOutfitData = {
+	drawables: TDrawables
+	props: TProps
 }
 
 export type TOutfit = {
-    id: number;
-    label: string;
-    outfit: TOutfitData;
-	jobname?: string|null;
+	id: number;
+	label: string;
+	outfit: TOutfitData;
+	jobname?: string | null;
 }
 
 export type TBlacklistValues = {
@@ -162,35 +164,35 @@ export type TBlacklistValues = {
 }
 
 export type TBlacklist = {
-    models?: string[]
+	models?: string[]
 	drawables?: TBlacklistValues
 	props?: TBlacklistValues
 }
 
-export type TJOBDATA = { 
+export type TJOBDATA = {
 	name: string,
-	isBoss: boolean 
+	isBoss: boolean
 }
 
 export type TModel = string
 
 export type TMenuData = {
 	locale: string;
-    appearance: TAppearance;
-    tabs: TParamTab;
-    outfits: TOutfit[];
-    blacklist: TBlacklist;
-    models: TModel[];
-    tattoos: TZoneTattoo[];
+	appearance: TAppearance;
+	tabs: TParamTab;
+	outfits: TOutfit[];
+	blacklist: TBlacklist;
+	models: TModel[];
+	tattoos: TZoneTattoo[];
 	job: TJOBDATA,
-    allowExit: boolean;
+	allowExit: boolean;
 }
 
 export type TTab = {
-    id: string;
-    label: string;
-    icon: string;
-    src: string;
+	id: string;
+	label: string;
+	icon: string;
+	src: string;
 }
 
 
@@ -211,6 +213,6 @@ export interface TToggles {
 }
 
 export interface Blacklist {
-    models: boolean,
-    drawables: boolean,
+	models: boolean,
+	drawables: boolean,
 }

@@ -6,16 +6,16 @@ local stores = {
         coords = vec4(-173.16, 306.09, 100.92, 357.39),
         jobs = { 'tsubaki' }
     },
---    {
---        type = 'outfits',
---        coords = vector4(-193.72, -1331.31, 31.61, 1.14),
---        jobs = { 'bennys' }
---    },
---    {
---        type = 'outfits',
---        coords = vector4(-193.72, -1331.31, 31.61, 1.14),
---        jobs = { 'bennys' }
---    },
+    --    {
+    --        type = 'outfits',
+    --        coords = vector4(-193.72, -1331.31, 31.61, 1.14),
+    --        jobs = { 'bennys' }
+    --    },
+    --    {
+    --        type = 'outfits',
+    --        coords = vector4(-193.72, -1331.31, 31.61, 1.14),
+    --        jobs = { 'bennys' }
+    --    },
     {
         type = 'clothing',
         coords = vector4(-715.87, -148.15, 37.61, 203.35),
@@ -88,7 +88,9 @@ local function setupZones()
     for id, v in pairs(stores) do
         exports.sleepless_interact:addCoords(vector3(v.coords.x, v.coords.y, v.coords.z), {
             {
-                label = (v.type == 'barber' and "Barbier") or (v.type == 'tattoos' and "Tattoueur") or (v.type == 'clothing' and "Magasin de vêtements") or (v.type == 'surgeon' and "Chirurgien") or (v.type =='outfits' and "Vestiaires"),
+                label = (v.type == 'barber' and "Barbier") or (v.type == 'tattoos' and "Tattoueur") or
+                    (v.type == 'clothing' and "Magasin de vêtements") or (v.type == 'surgeon' and "Chirurgien") or
+                    (v.type == 'outfits' and "Vestiaires"),
                 icon = "tshirt",
                 distance = 5.0,
                 onSelect = function()

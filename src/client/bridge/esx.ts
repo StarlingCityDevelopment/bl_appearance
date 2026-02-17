@@ -11,7 +11,7 @@ export function ESXBridge() {
     });
 
     on("esx_skin:playerRegistered", () => {
-        if(firstSpawn)
+        if (firstSpawn)
             exports.bl_appearance.InitialCreation()
     });
 

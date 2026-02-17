@@ -13,7 +13,6 @@ export enum Receive {
     camMove = 'appearance:camMove',
     camSection = 'appearance:camSection',
 
-
     setModel = 'appearance:setModel',
     setHeadStructure = 'appearance:setHeadStructure',
     setHeadOverlay = 'appearance:setHeadOverlay',
