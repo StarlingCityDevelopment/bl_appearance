@@ -69,9 +69,7 @@ export async function openMenu(zone: TAppearanceZone | TAppearanceZone['type'], 
 
     SetNuiFocus(true, true)
     sendNUIEvent(Send.visible, true)
-
     open = true
-
     exports.bl_appearance.hideHud(true)
 
     if (promise) {

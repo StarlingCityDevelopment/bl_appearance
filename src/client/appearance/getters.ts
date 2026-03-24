@@ -120,6 +120,7 @@ export function getDrawables(pedHandle: number) {
             total: GetNumberOfPedDrawableVariations(pedHandle, i),
             textures: GetNumberOfPedTextureVariations(pedHandle, i, current)
         }
+
         drawables[name] = {
             id: name,
             index: i,

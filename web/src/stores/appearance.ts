@@ -275,12 +275,14 @@ const APPEARANCE_INIT = () => {
                 collection: isTexture ? prop.collection : undefined,
                 localIndex: isTexture ? prop.localIndex : undefined
             }).then((response: { textures: number, collection: string, localIndex: number }) => {
+                const safeResponse = response || { textures: 0, collection: '', localIndex: -1 };
+
                 store.update(appearance => {
                     if (!isTexture) {
-                        appearance.propTotal[prop.id].textures = response.textures;
+                        appearance.propTotal[prop.id].textures = safeResponse.textures;
                         prop.texture = 0;
-                        prop.collection = response.collection;
-                        prop.localIndex = response.localIndex;
+                        prop.collection = safeResponse.collection;
+                        prop.localIndex = safeResponse.localIndex;
                     }
                     appearance.props[prop.id] = prop;
                     return appearance;
@@ -310,13 +312,15 @@ const APPEARANCE_INIT = () => {
                 collection: isTexture ? drawable.collection : undefined,
                 localIndex: isTexture ? drawable.localIndex : undefined
             }).then((response: { textures: number, collection: string, localIndex: number }) => {
+                const safeResponse = response || { textures: 0, collection: '', localIndex: -1 };
+
                 store.update(appearance => {
                     if (!isTexture) {
                         appearance.drawTotal[drawable.id].textures =
-                            response.textures;
+                            safeResponse.textures;
                         drawable.texture = 0;
-                        drawable.collection = response.collection;
-                        drawable.localIndex = response.localIndex;
+                        drawable.collection = safeResponse.collection;
+                        drawable.localIndex = safeResponse.localIndex;
                     }
                     appearance.drawables[drawable.id] = drawable;
                     return appearance;

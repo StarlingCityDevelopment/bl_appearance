@@ -25,7 +25,11 @@ export function setProp(pedHandle: number, data: TValue) {
 
     if (data.value === -1) {
         ClearPedProp(pedHandle, data.index)
-        return
+        return {
+            textures: 0,
+            collection: '',
+            localIndex: -1
+        }
     }
 
     if (data.collection) {
